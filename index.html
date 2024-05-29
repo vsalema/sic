@@ -3,8 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>sic</title>
+
 <link href="https://unpkg.com/videojs-max-quality-selector@0.9.1/dist/videojs-max-quality-selector.css" rel="stylesheet">
-<link href="https://ia904708.us.archive.org/25/items/tresmin_20230107_0910/tresmin.css" rel="stylesheet" />
+    <link rel="canonical" href="https://codepen.io/mikehatfield/pen/zYzEzvb">
+  <link href="https://ia904708.us.archive.org/25/items/tresmin_20230107_0910/tresmin.css" rel="stylesheet" />
+  
+  
+  
 <style>
 body {
   font-family: sans-serif;
@@ -59,7 +64,11 @@ body {
   <script>
   window.console = window.console || function(t) {};
 </script>
+
+  
+  
 </head>
+
 <body translate="no">
   <div class="player">
   <video autoplay class="js-video vjs-16-9 js-video video-js vjs-big-play-centered col-12" height="720" id="js-video-horsa" controls width="1024"></video>
@@ -95,6 +104,10 @@ const options = {
       smoothQualityChange: true,
       bandwidth: 6194304,
       overrideNative: true } } };
+
+
+
+
 // HLS Streams, one for each player.
 const stream_one = "https://d1zx6l1dn8vaj5.cloudfront.net/out/v1/b89cc37caa6d418eb423cf092a2ef970/index.m3u8";
 const stream_two = "";
@@ -145,7 +158,3 @@ player.maxQualitySelector({
 </body>
 
 </html>
-
-
-
-
