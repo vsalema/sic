@@ -1,77 +1,60 @@
-<script src="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.js"></script>
+<!DOCTYPE html>
+<html lang='en' class=''>
 
-<video id="video-id"><source src="https://d1zx6l1dn8vaj5.cloudfront.net/out/v1/b89cc37caa6d418eb423cf092a2ef970/index.m3u8" type="application/x-mpegURL" />
+<head>
 
-<script>
+  <meta charset='UTF-8'>
+  <title>sic</title>
 
-    var myFP = fluidPlayer(
+  <meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://unpkg.com/plyr@3/dist/plyr.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+ <style>
+	video {
+	width: 100%;
+}
+</style>
+</head>
 
-        'video-id',	{
-
-	"layoutControls": {
-
-		"controlBar": {
-
-			"autoHideTimeout": 3,
-
-			"animated": true,
-
-			"autoHide": true
-
-		},
-
-		"htmlOnPauseBlock": {
-
-			"html": null,
-
-			"height": null,
-
-			"width": null
-
-		},
-
-		"autoPlay": true,
-
-		"mute": false,
-
-		"allowTheatre": false,
-
-		"playPauseAnimation": true,
-
-		"playbackRateEnabled": false,
-
-		"allowDownload": false,
-
-		"playButtonShowing": false,
-
-		"fillToContainer": true,
-
-		"posterImage": ""
-
-	},
-
-	"vastOptions": {
-
-		"adList": [
-
-			{
-
-				"roll": "preRoll",
-
-				"vastTag": "",
-
-				"adText": ""
-
-			}
-
-		],
-
-		"adCTAText": false,
-
-		"adCTATextPosition": ""
-
+<body>
+ <div class="container">
+	<video autoplay controls crossorigin playsinline poster="https://bitdash-a.akamaihd.net/content/sintel/poster.png"></video>
+</div>
+<script id="rendered-js" >
+document.addEventListener('DOMContentLoaded', () => {
+	const source = 'https://d1zx6l1dn8vaj5.cloudfront.net/out/v1/b89cc37caa6d418eb423cf092a2ef970/index.m3u8';
+	const video = document.querySelector('video');
+	
+	// For more options see: https://github.com/sampotts/plyr/#options
+	// captions.update is required for captions to work with hls.js
+	const player = new Plyr(video, {captions: {active: true, update: true, language: 'en'}});
+	
+	if (!Hls.isSupported()) {
+		video.src = source;
+	} else {
+		// For more Hls.js options, see https://github.com/dailymotion/hls.js
+		const hls = new Hls();
+		hls.loadSource(source);
+		hls.attachMedia(video);
+		window.hls = hls;
+		
+		// Handle changing captions
+		player.on('languagechange', () => {
+			// Caption support is still flaky. See: https://github.com/sampotts/plyr/issues/994
+			setTimeout(() => hls.subtitleTrack = player.currentTrack, 50);
+		});
 	}
-
+	
+	// Expose player so it can be used from the console
+	window.player = player;
 });
+	</script>
+	
+	<script src="https://cdn.rawgit.com/video-dev/hls.js/18bb552/dist/hls.min.js"></script>
+  
+<script src="https://cdnjs.cloudflare.com/polyfill/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
+<script src="https://unpkg.com/plyr@3"></script>
+  
+</body>
 
-</script>
+</html>
